@@ -59,7 +59,7 @@ app.get('/auth/register', register, (req, res) => {
 });
 
 
-function app(){
+function main(){
     console.log('init');
 }
 app.listen(
