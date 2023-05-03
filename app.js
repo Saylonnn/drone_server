@@ -59,20 +59,6 @@ app.get('/auth/register', register, (req, res) => {
 });
 
 
-app.post('/messaging/send_message', isAuthorized, sendMessage,  (req,res) =>{
-    res.status(200);
-    res.send("message send ");
-});
-
-app.get('/messaging/get_update', isAuthorized , sendUpdate, (req, res)=>{
-    res.status(200);
-});
-
-app.get('/contacts/list_users', list_users, (req, res) => {
-    res.status(200);
-});
-
-
 function app(){
     console.log('init');
 }
