@@ -1,6 +1,6 @@
 const express = require('express');
 const db = require('./db/databaseConnection');
-
+const isAuthorized = require('./middleware/authorisation');
 const https = require('https');
 const fs = require('fs');
 const helmet = require('helmet');
@@ -73,7 +73,7 @@ app.get('/contacts/list_users', list_users, (req, res) => {
 });
 
 
-function main(){
+function app(){
     console.log('init');
 }
 app.listen(
