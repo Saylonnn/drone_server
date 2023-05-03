@@ -14,16 +14,16 @@ app.use(helmet());
 app.use(express.static('static'));
 app.use(express.json());
 
-const PORT = 1337;
+const PORT = 5000;
 
 
 
-
+/*
 const options = {
     key: fs.readFileSync('/etc/letsencrypt/live/api.caylonn.de/privkey.pem'),
     cert: fs.readFileSync('/etc/letsencrypt/live/api.caylonn.de/fullchain.pem'),
 };
-
+*/
 /**
  * URLS
  * /auth/register                   -GET
@@ -59,12 +59,10 @@ app.get('/auth/register', register, (req, res) => {
 });
 
 
-function main(){
-    console.log('init');
-}
+
 app.listen(
-    8080,
+    5000,
     () => console.log(`its alive on http://localhost:${PORT}`)
 )
 
-https.createServer(options, app).listen(PORT);
+
