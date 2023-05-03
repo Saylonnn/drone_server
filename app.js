@@ -1,6 +1,7 @@
 const express = require('express');
 const db = require('./db/databaseConnection');
 const isAuthorized = require('./middleware/authorisation');
+const register = require('./middleware/register');
 const https = require('https');
 const fs = require('fs');
 const helmet = require('helmet');
@@ -46,7 +47,7 @@ app.get('/' , (req, res)=>{
     res.status(200).send('messenger-api');
 });
 
-app.get('/auth/login', isAuthorized, updateToken, (req, res) =>{
+app.get('/auth/login', isAuthorized, /*updateToken,*/ (req, res) =>{
     res.status(200);
     res.send('accepted');
 
