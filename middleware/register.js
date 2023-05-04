@@ -20,14 +20,14 @@ function register(req, res, next) {
         res.send('invalid pw length');
         console.log("invalid pw length");
     }else {
-        db.execute('Select email From user where email like ?', [email]).then(result => {
+        db.execute('Select email From users where email like ?', [email]).then(result => {
             console.log("db execute : result: ", result);
             if (result[0][0] === undefined){
                 console.log("generating hash");
                 argon2.hash(password, {type: argon2.argon2id})
                     .then(result => {
                         console.log("hash", result);
-                        db.execute('Insert into chatapp.user (email, username, hash, token) values (?,?,?,?)',[email, username, result, token])
+                        db.execute('Insert into drone_app.users (email, username, hash, token) values (?,?,?,?)',[email, username, result, token])
                             .then(result => {
                                     next();
                                 }
