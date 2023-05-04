@@ -15,7 +15,7 @@ function authorizeDrone(req, res, next){
         res.send("invalid credentials");
         console.log("empty credential field");
     }else{
-        db.execute('Select hash from drones where tag like ?', [tag])
+        db.execute('Select token_hash from drones where tag like ?', [tag])
             .then(result => {
                 if (result[0][0] !== undefined){
                     argon2.verify(result[0][0]["token_hash"], token)
