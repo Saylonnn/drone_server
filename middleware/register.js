@@ -8,10 +8,9 @@ function register(req, res, next) {
     console.log(' -------------------------------');
     console.log('[register aufgerufen] ');
     const email = req.headers["email"];
-    const username = req.headers["username"];
     const password = req.headers["password"];
-    console.log("email: ", email, "username: ", username, "password: ", password);
-    if(email === undefined || username === undefined || password === undefined){
+    //console.log("email: ", email, "username: ", username, "password: ", password);
+    if(email === undefined || password === undefined){
         res.status(200);
         res.send('invalid entry');
         console.log("invalid entry");
@@ -27,7 +26,7 @@ function register(req, res, next) {
                 argon2.hash(password, {type: argon2.argon2id})
                     .then(result => {
                         console.log("hash", result);
-                        db.execute('Insert into drone_app.users (email, username, hash) values (?,?,?)',[email, username, result])
+                        db.execute('Insert into drone_app.users (email, hash) values (?,?,?)',[email, result])
                             .then(result => {
                                     next();
                                 }
