@@ -15,10 +15,10 @@ function authorizeDrone(req, res, next){
         res.send("invalid credentials");
         console.log("empty credential field");
     }else{
-        db.execute('Select hash from users where email like ?', [tag])
+        db.execute('Select hash from drones where tag like ?', [tag])
             .then(result => {
                 if (result[0][0] !== undefined){
-                    argon2.verify(result[0][0]["token_hash"], toke)
+                    argon2.verify(result[0][0]["token_hash"], token)
                         .then(result => {
                             console.log("argon verify result: ", result);
                             if(result){
@@ -36,7 +36,7 @@ function authorizeDrone(req, res, next){
                 }else{
                     console.log("no matching entry");
                     res.status(401);
-                    res.status("invalid credentials");
+                    res.send("invalid credentials");
                 }
             })
             .catch(err => {
