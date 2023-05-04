@@ -18,7 +18,7 @@ function isAuthorized(req, res, next) {
         res.send("no password or email");
         console.log("empty field");
     }else{
-        db.execute('Select hash from user where email like ?', [email])
+        db.execute('Select hash from users where email like ?', [email])
             .then(result => {
                 if (result[0][0] !== undefined){
                     argon2.verify(result[0][0]["hash"], password)
