@@ -52,7 +52,7 @@ app.get('/drone/authDrone', authDrone, (req, res) => {
     console.log("Drone Authenticaiton finished");
 });
 
-app.post('(/drone/startTransmission', authDrone,  (req, res) => {
+app.post('/drone/startTransmission', authDrone,  (req, res) => {
     const session = {
         id : Math.random().toString(36).substring(7),
         broadcaster: null,
