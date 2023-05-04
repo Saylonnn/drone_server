@@ -63,6 +63,7 @@ app.post('/drone/startTransmission', authDrone,  (req, res) => {
         const wss = new WebSocket.Server({ port: 8080});
         // on connect
         wss.on('connection', (ws) => {
+            console.log('wss connected')
             if(!session.broadcaster) {
                 session.broadcaster = ws;
                 ws.send(JSON.stringify({type: 'broadcaster'}));
@@ -74,6 +75,7 @@ app.post('/drone/startTransmission', authDrone,  (req, res) => {
             }
             // on message
             ws.on('message', (message) => {
+                console.log('message: ', message)
                 session.viewers.forEach((viewer) => {
                     viewer.send(message);
                 });
@@ -81,6 +83,7 @@ app.post('/drone/startTransmission', authDrone,  (req, res) => {
 
             // on close connection
             ws.on('close', () => {
+                console.log('connection closed')
                 if (ws === session.broadcaster) {
                     session.viewers.forEach((viewer) => {
                         viewer.close();
@@ -101,6 +104,7 @@ const server = app.listen(PORT, () => console.log(`its alive on http://localhost
 server.on('upgrade', (request, socket, head) => {
     wss.handleUpgrade(request, socket, head, (ws) => {
         wss.emit('connection', ws);
+        console.log('connection upgraded')
     });
 });
 
