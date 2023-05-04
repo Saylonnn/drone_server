@@ -27,7 +27,7 @@ function register(req, res, next) {
                 argon2.hash(password, {type: argon2.argon2id})
                     .then(result => {
                         console.log("hash", result);
-                        db.execute('Insert into drone_app.users (email, username, hash, token) values (?,?,?,?)',[email, username, result, token])
+                        db.execute('Insert into drone_app.users (email, username, hash) values (?,?,?)',[email, username, result])
                             .then(result => {
                                     next();
                                 }
