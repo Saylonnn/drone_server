@@ -6,7 +6,7 @@ async function verify(hash, password){
     return correct;
 }
 
-function authorizeDron(req, res, next){
+function authorizeDrone(req, res, next){
     var tag = req.headers["tag"];
     var token = req.headers["token"]
     console.log("tag: " + tag + " token: " + token);
