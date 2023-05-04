@@ -36,7 +36,7 @@ function register(req, res, next) {
                             res.status(500);
                             res.send("server error");
                         })
-                    }).catch(error =>{
+                    }).catch(err =>{
                     console.log(err);
                     res.status(500);
                     res.send("server error")
