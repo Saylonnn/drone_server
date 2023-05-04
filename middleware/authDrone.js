@@ -17,7 +17,7 @@ function authorizeDrone(req, res, next){
     }else{
         db.execute('Select hash from users where email like ?', [tag])
             .then(result => {
-                if (result[0][0] !== undefinied){
+                if (result[0][0] !== undefined){
                     argon2.verify(result[0][0]["token_hash"], toke)
                         .then(result => {
                             console.log("argon verify result: ", result);
