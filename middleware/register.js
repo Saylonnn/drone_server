@@ -10,9 +10,8 @@ function register(req, res, next) {
     const email = req.headers["email"];
     const username = req.headers["username"];
     const password = req.headers["password"];
-    const token = req.headers["token"];
     console.log("email: ", email, "username: ", username, "password: ", password, "token: ", token);
-    if(email === undefined || username === undefined || password === undefined || token === undefined){
+    if(email === undefined || username === undefined || password === undefined){
         res.status(200);
         res.send('invalid entry');
         console.log("invalid entry");
