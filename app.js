@@ -2,6 +2,8 @@ const express = require('express');
 const db = require('./db/databaseConnection');
 const isAuthorized = require('./middleware/authorisation');
 const register = require('./middleware/register');
+const registerDrone = require('./middleware/registerDrone');
+const authDrone = require('./middleware/authDrone');
 const https = require('https');
 const fs = require('fs');
 const helmet = require('helmet');
@@ -19,28 +21,6 @@ const PORT = 5000;
 
 
 
-/*
-const options = {
-    key: fs.readFileSync('/etc/letsencrypt/live/api.caylonn.de/privkey.pem'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/api.caylonn.de/fullchain.pem'),
-};
-*/
-/**
- * URLS
- * /auth/register                   -GET
- * /auth/login                      -GET
- * /auth/updateToken                -POST
- * /messaging/send_message          -POST
- * /messaging/get_update            -GET
- *
- * /contacts/send_friend_request    -POST
- * /contacts/accept_friend_request  -POST
- * /contacts/denie_friend_request   -POST
- * /contacts/delete_friend          -POST
- *
- * /utility/get_settingsbackup      -GET
- * /utility/upload_settings         -POST
- */
 
 
 app.get('/' , (req, res)=>{
@@ -59,10 +39,22 @@ app.get('/auth/register', register, (req, res) => {
     console.log("register finished");
 });
 
+app.get('/drone/registerDrone', registerDrone, (req, res) => {
+    res.status(200);
+    res.send('Drone registered');
+    console.log("Drone Register finished");
+});
+
+app.get('/drone/authDrone', authDrone, (req, res) => {
+    res.status(200);
+    res.send('Drone authenticated');
+    console.log("Drone Authenticaiton finished");
+});
+
 
 
 app.listen(
-    5000,
+    PORT,
     () => console.log(`its alive on http://localhost:${PORT}`)
 )
 
