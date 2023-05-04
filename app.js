@@ -39,8 +39,8 @@ app.get('/auth/register', register, (req, res) => {
 });
 
 app.get('/drone/registerDrone', registerDrone, (req, res) => {
-    res.status(200);
-    res.send('Drone registered');
+    //res.status(200);
+    //res.send('Drone registered');
     console.log("Drone Register finished");
 });
 

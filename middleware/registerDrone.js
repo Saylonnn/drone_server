@@ -36,6 +36,12 @@ function registerDrone(req, res, next){
                             console.log("hash", result);
                             db.execute('Insert into drone_app.drones (tag, token_hash) values (?,?)', [tag, result])
                                 .then(result => {
+                                    const answer = {
+                                        status : 'accepted',
+                                        token : generated_Token
+                                    } ;
+                                    res.status(200)
+                                    res.json(answer)
                                     next();
                                 })
                                 .catch(err => {
