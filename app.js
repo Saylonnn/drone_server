@@ -1,5 +1,4 @@
 const express = require('express');
-const db = require('./db/databaseConnection');
 const isAuthorized = require('./middleware/authorisation');
 const register = require('./middleware/register');
 const registerDrone = require('./middleware/registerDrone');

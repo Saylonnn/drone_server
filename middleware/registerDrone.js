@@ -64,4 +64,4 @@ function registerDrone(req, res, next){
     }
 };
 
-module.exports = registerDrone();
+module.exports = registerDrone;
