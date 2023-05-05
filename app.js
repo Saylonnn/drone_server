@@ -52,51 +52,14 @@ app.get('/drone/authDrone', authDrone, (req, res) => {
     console.log("Drone Authenticaiton finished");
 });
 
-app.post('/drone/startTransmission', authDrone,  (req, res) => {
+app.getDroneStart('/drone/startTransmission', authDrone,  (req, res) => {
     const session = {
         id : Math.random().toString(36).substring(7),
         broadcaster: null,
         viewers: []
     };
     sessions.push(session);
-    if (!streamOnline) {
-        const wss = new WebSocket.Server({ port: 8080});
-        // on connect
-        wss.on('connection', (ws) => {
-            console.log('wss connected')
-            if(!session.broadcaster) {
-                session.broadcaster = ws;
-                ws.send(JSON.stringify({type: 'broadcaster'}));
-            } else {
-                session.viewers.push(ws);
-                ws.send(JSON.stringify({type: 'viewer', sessionID: session.id}));
-                session.broadcaster.send(JSON.stringify({type:'viewerConnected', viewerCount: session.viewers.length }));
 
-            }
-            // on message
-            ws.on('message', (message) => {
-                console.log('message: ', message)
-                session.viewers.forEach((viewer) => {
-                    viewer.send(message);
-                });
-            });
-
-            // on close connection
-            ws.on('close', () => {
-                console.log('connection closed')
-                if (ws === session.broadcaster) {
-                    session.viewers.forEach((viewer) => {
-                        viewer.close();
-                    });
-                    session.splice(session.indexOf(session), 1);
-                } else {
-                    session.viewers.splice(session.viewers.indexOf(ws), 1);
-                    session.broadcaster.send(JSON.stringify({type: 'viewerDisconnected', viewerCount: session.viewers.length}));
-
-                }
-            });
-        })
-    }
 });
 
 const server = app.listen(PORT, () => console.log(`its alive on http://localhost:${PORT}`));
@@ -104,7 +67,6 @@ const server = app.listen(PORT, () => console.log(`its alive on http://localhost
 server.on('upgrade', (request, socket, head) => {
     wss.handleUpgrade(request, socket, head, (ws) => {
         wss.emit('connection', ws);
-        console.log('connection upgraded')
     });
 });
 
